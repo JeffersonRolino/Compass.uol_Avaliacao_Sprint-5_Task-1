@@ -1,4 +1,4 @@
-package com.github.jeffersonrolino.avaliacao_sprint_5_task_1.models;
+package com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities;
 
 import lombok.*;
 

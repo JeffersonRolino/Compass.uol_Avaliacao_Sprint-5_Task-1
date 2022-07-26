@@ -1,6 +1,6 @@
 package com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos;
 
-import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.models.Item;
+import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities.Item;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

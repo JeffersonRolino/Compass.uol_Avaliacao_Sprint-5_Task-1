@@ -1,7 +1,7 @@
 package com.github.jeffersonrolino.avaliacao_sprint_5_task_1.services;
 
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos.OrderDTO;
-import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.models.Order;
+import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities.Order;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
