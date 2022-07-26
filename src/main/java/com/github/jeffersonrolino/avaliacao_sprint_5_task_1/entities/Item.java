@@ -1,12 +1,11 @@
 package com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities;
 
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos.ItemDTO;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Data
@@ -23,10 +22,10 @@ public class Item {
     private String name;
 
     @Column(name = "data_criacao")
-    private LocalDateTime creationDate;
+    private String creationDate;
 
     @Column(name = "data_validade")
-    private LocalDateTime expirationDate;
+    private String expirationDate;
 
     @NotNull
     @Column(name = "preco")
@@ -35,13 +34,11 @@ public class Item {
     @Column(name = "descricao")
     private String description;
 
-    @Column(name = "pedidos")
-    @ManyToMany(mappedBy = "itens", cascade = CascadeType.ALL)
-    private List<Order> orders;
+//    @ManyToMany(mappedBy = "itens")
+//    private List<Order> orders = new ArrayList<>();
 
-    @Column(name = "ofertas")
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Sale> sales;
+//    @ManyToMany()
+//    private List<Sale> sales = new ArrayList<>();
 
     public Item(ItemDTO itemDTO) {
         this.id = itemDTO.getId();
@@ -50,6 +47,6 @@ public class Item {
         this.expirationDate = itemDTO.getDataDeValidade();
         this.price = itemDTO.getValor();
         this.description = itemDTO.getDescricao();
-        this.sales = itemDTO.getOfertas();
+//        this.sales = itemDTO.getOfertas();
     }
 }

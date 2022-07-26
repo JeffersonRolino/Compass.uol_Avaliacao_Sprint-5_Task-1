@@ -1,7 +1,9 @@
 package com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities;
 
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos.OrderDTO;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -21,8 +23,13 @@ public class Order {
 
     private String cpf;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "item_id")
+    @ManyToMany
+    @JoinTable(
+            name = "tb_pedido_item",
+            joinColumns = @JoinColumn(name = "pedido_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id")
+    )
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Item> itens = new ArrayList<>();
 
     @NotNull
@@ -31,7 +38,9 @@ public class Order {
     public Order(OrderDTO orderDTO) {
         this.id = orderDTO.getId();
         this.cpf = orderDTO.getCpf();
-        this.itens = orderDTO.getItens();
+        this.itens = orderDTO.convertItens(orderDTO.getItens());
         this.total = orderDTO.getTotal();
     }
+
+
 }

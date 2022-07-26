@@ -21,15 +21,23 @@ public class OrderDTO {
     private String cpf;
 
     @NotNull @NotEmpty
-    private List<Item> itens = new ArrayList<>();
+    private List<ItemDTO> itens = new ArrayList<>();
 
     @PositiveOrZero
     private Double total;
 
 
-    public OrderDTO(String cpf, List<Item> itens, Double total) {
+    public OrderDTO(String cpf, List<ItemDTO> itens, Double total) {
         this.cpf = cpf;
         this.itens = itens;
         this.total = total;
+    }
+
+    public List<Item> convertItens(List<ItemDTO> itemDTOS){
+        List<Item> itens = new ArrayList<>();
+        for (ItemDTO itemDTO : itemDTOS){
+            itens.add(new Item(itemDTO));
+        }
+        return itens;
     }
 }
