@@ -8,20 +8,18 @@ import java.util.List;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@Table(name = "tb_pedido")
+@Table(name = "tb_pedidos")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pedido_id")
     private Long id;
 
     private String cpf;
 
-    @OneToMany(mappedBy = "tb_pedido")
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Item> itens;
 
     private Double total;
