@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -19,9 +21,9 @@ public class OrderDTO {
     private String cpf;
 
     @NotNull @NotEmpty
-    private List<Item> itens;
+    private List<Item> itens = new ArrayList<>();
 
-    @NotNull @NotEmpty
+    @PositiveOrZero
     private Double total;
 
 

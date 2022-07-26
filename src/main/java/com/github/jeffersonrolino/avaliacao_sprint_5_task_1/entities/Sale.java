@@ -1,8 +1,10 @@
 package com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDateTime;
 
 @Entity
@@ -24,6 +26,7 @@ public class Sale {
     @Column(name = "data_validade")
     private LocalDateTime expirationDate;
 
+    @PositiveOrZero
     @Column(name = "desconto")
     private double discount;
 

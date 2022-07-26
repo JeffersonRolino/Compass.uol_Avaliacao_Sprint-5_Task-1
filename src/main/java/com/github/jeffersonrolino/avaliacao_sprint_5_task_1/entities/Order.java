@@ -4,6 +4,8 @@ import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos.OrderDTO;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,8 +22,10 @@ public class Order {
     private String cpf;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    private List<Item> itens;
+    @JoinColumn(name = "item_id")
+    private List<Item> itens = new ArrayList<>();
 
+    @NotNull
     private Double total;
 
     public Order(OrderDTO orderDTO) {
