@@ -1,5 +1,6 @@
 package com.github.jeffersonrolino.avaliacao_sprint_5_task_1.models;
 
+import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos.OrderDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,4 +25,11 @@ public class Order {
     private List<Item> itens;
 
     private Double total;
+
+    public Order(OrderDTO orderDTO) {
+        this.id = orderDTO.getId();
+        this.cpf = orderDTO.getCpf();
+        this.itens = orderDTO.getItens();
+        this.total = orderDTO.getTotal();
+    }
 }
