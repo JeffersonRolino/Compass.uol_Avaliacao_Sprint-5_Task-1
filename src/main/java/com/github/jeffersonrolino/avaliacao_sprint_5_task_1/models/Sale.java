@@ -7,14 +7,12 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@Table(name = "tb_oferta")
+@Table(name = "tb_ofertas")
 public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "oferta_id")
     private Long id;
 
     @Column(name = "nome")
@@ -28,9 +26,6 @@ public class Sale {
 
     @Column(name = "desconto")
     private double discount;
-
-    @ManyToOne
-    private Item item;
 
     @Column(name = "descricao")
     private String description;
