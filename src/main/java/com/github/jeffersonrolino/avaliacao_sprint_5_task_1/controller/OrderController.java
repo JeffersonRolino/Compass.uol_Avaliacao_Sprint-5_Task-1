@@ -44,4 +44,18 @@ public class OrderController {
         return orderService.removeOrderById(id);
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<String> partialUpdateOrderById(
+            @RequestBody OrderDTO orderDTO, @PathVariable("id") Long id)
+    {
+        boolean isSave = orderService.partialUpdateNewOrder(orderDTO, id);
+
+        if(isSave){
+            return ResponseEntity.status(HttpStatus.OK).body("Pedido atualizado com sucesso!");
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Desculpe, pedido não foi atualizado!");
+        }
+    }
+
 }
