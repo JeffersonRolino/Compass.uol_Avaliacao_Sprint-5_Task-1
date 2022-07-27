@@ -67,22 +67,6 @@ public class OrderService {
         return ResponseEntity.notFound().build();
     }
 
-//    public boolean partialUpdateNewOrder(OrderDTO orderDTO, Long id){
-//
-//        try {
-//            Optional<Order> targetOrder = orderRepository.findById(id);
-//            if(targetOrder.isPresent()){
-//                Order order = update(id, orderDTO, orderRepository);
-//                orderRepository.save(order);
-//                return true;
-//            }
-//            return false;
-//        } catch (RuntimeException exception){
-//            exception.printStackTrace();
-//            return false;
-//        }
-//    }
-
     public boolean partialUpdateNewOrder(OrderDTO orderDTO, Long id) throws RuntimeException{
         Order order = orderRepository.findById(id).orElseThrow(RuntimeException::new);
 
@@ -93,24 +77,4 @@ public class OrderService {
         orderRepository.save(order);
         return true;
     }
-
-
-//    public Order update(Long id, OrderDTO orderDTO, OrderRepository orderRepository){
-//        Order order = orderRepository.getReferenceById(id);
-//
-//            order.setCpf(orderDTO.getCpf());
-//            order.setItens(orderDTO.convertToItens(orderDTO.getItens()));
-//            order.setTotal(orderDTO.getTotal());
-//
-//        return order;
-//    }
-
-
-
-
-
-
-
-
-
 }
