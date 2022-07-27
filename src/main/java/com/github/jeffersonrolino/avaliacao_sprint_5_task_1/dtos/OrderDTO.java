@@ -25,6 +25,7 @@ public class OrderDTO {
     @PositiveOrZero
     private Double total;
 
+    public OrderDTO(){}
 
     public OrderDTO(String cpf, List<ItemDTO> itens, Double total) {
         this.cpf = cpf;
@@ -33,6 +34,10 @@ public class OrderDTO {
     }
 
     public OrderDTO(Order order) {
+        this.id = order.getId();
+        this.cpf = order.getCpf();
+        this.itens = order.itensToItensDTO(order.getItens());
+        this.total = order.getTotal();
     }
 
     public List<Item> convertToItens(List<ItemDTO> itemDTOS){
@@ -42,4 +47,6 @@ public class OrderDTO {
         }
         return itens;
     }
+
+
 }

@@ -1,6 +1,7 @@
 package com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities;
 
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos.ItemDTO;
+import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos.SaleDTO;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.parsers.LocalDateTimeParser;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,7 +40,7 @@ public class Item {
     @Column(name = "descricao")
     private String description;
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "tb_item_oferta",
             joinColumns = @JoinColumn(name = "item_id"),
@@ -57,4 +58,14 @@ public class Item {
         this.description = itemDTO.getDescricao();
         this.sales = itemDTO.convertToSales(itemDTO.getOfertas());
     }
+
+    public List<SaleDTO> salesToSalesDTO(List<Sale> sales){
+        List<SaleDTO> saleDTOS = new ArrayList<>();
+        for(Sale sale : sales){
+            SaleDTO saleDTO = new SaleDTO(sale);
+            saleDTOS.add(saleDTO);
+        }
+        return saleDTOS;
+    }
+
 }

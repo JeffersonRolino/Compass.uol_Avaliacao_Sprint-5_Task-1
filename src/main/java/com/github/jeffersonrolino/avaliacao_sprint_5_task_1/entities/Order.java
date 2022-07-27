@@ -1,5 +1,6 @@
 package com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities;
 
+import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos.ItemDTO;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos.OrderDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,7 @@ public class Order {
 
     private String cpf;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "tb_pedido_item",
             joinColumns = @JoinColumn(name = "pedido_id"),
@@ -40,6 +41,14 @@ public class Order {
         this.cpf = orderDTO.getCpf();
         this.itens = orderDTO.convertToItens(orderDTO.getItens());
         this.total = orderDTO.getTotal();
+    }
+
+    public List<ItemDTO> itensToItensDTO(List<Item> itens){
+        List<ItemDTO> itemDTOS = new ArrayList<>();
+        for (Item item : itens){
+            itemDTOS.add(new ItemDTO(item));
+        }
+        return itemDTOS;
     }
 
 

@@ -6,8 +6,8 @@ import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.repositories.OrderRe
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
@@ -35,7 +35,12 @@ public class OrderService {
 
     public List<OrderDTO> getAllOrders(){
         try{
-            return orderRepository.findAll().stream().map(OrderDTO::new).collect(Collectors.toList());
+            List<Order> orders = orderRepository.findAll();
+            List<OrderDTO> orderDTOS = new ArrayList<>();
+            for(Order order : orders){
+                orderDTOS.add(new OrderDTO(order));
+            }
+            return orderDTOS;
         } catch (RuntimeException exception){
             exception.printStackTrace();
             return null;

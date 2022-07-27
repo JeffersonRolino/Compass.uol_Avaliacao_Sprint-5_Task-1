@@ -1,6 +1,8 @@
 package com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos;
 
+import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities.Item;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities.Sale;
+import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.parsers.LocalDateTimeParser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -44,6 +46,16 @@ public class ItemDTO {
         this.ofertas = ofertas;
     }
 
+    public ItemDTO(Item item) {
+        this.id = item.getId();
+        this.nome = item.getName();
+        this.dataDeCriacao = LocalDateTimeParser.toString(item.getCreationDate());
+        this.dataDeValidade = LocalDateTimeParser.toString(item.getCreationDate());
+        this.valor = item.getPrice();
+        this.descricao = item.getDescription();
+        this.ofertas = item.salesToSalesDTO(item.getSales());
+    }
+
     public List<Sale> convertToSales(List<SaleDTO> salesDTOS){
         List<Sale> sales = new ArrayList<>();
         for (SaleDTO saleDTOS : salesDTOS){
@@ -51,6 +63,7 @@ public class ItemDTO {
         }
         return sales;
     }
+
 
 
 

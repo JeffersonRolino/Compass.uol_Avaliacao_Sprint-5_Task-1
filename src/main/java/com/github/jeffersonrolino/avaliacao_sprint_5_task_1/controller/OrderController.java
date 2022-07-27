@@ -5,12 +5,10 @@ import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.services.OrderServic
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping(("/api/pedido"))
@@ -29,5 +27,10 @@ public class OrderController {
         else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Pedido não foi processado!");
         }
+    }
+
+    @GetMapping
+    public List<OrderDTO> returnAllOrders(){
+        return orderService.getAllOrders();
     }
 }
