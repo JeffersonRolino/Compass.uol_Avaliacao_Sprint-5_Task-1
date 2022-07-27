@@ -1,9 +1,15 @@
 package com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class SaleDTO {
     private Long id;
 
@@ -12,10 +18,10 @@ public class SaleDTO {
     private String nome;
 
     @NotNull
-    private LocalDateTime dataDeCriacao;
+    private String dataDeCriacao;
 
     @NotNull
-    private LocalDateTime dataDeValidade;
+    private String dataDeValidade;
 
     @NotNull
     private double desconto;

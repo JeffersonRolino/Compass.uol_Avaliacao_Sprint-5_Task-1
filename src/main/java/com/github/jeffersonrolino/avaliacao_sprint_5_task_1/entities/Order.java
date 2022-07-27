@@ -38,7 +38,7 @@ public class Order {
     public Order(OrderDTO orderDTO) {
         this.id = orderDTO.getId();
         this.cpf = orderDTO.getCpf();
-        this.itens = orderDTO.convertItens(orderDTO.getItens());
+        this.itens = orderDTO.convertToItens(orderDTO.getItens());
         this.total = orderDTO.getTotal();
     }
 

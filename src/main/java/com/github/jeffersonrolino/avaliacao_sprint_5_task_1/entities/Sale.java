@@ -1,11 +1,11 @@
 package com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities;
 
+import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos.SaleDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.PositiveOrZero;
-import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -21,10 +21,10 @@ public class Sale {
     private String name;
 
     @Column(name = "data_criacao")
-    private LocalDateTime creationDate;
+    private String creationDate;
 
     @Column(name = "data_validade")
-    private LocalDateTime expirationDate;
+    private String expirationDate;
 
     @PositiveOrZero
     @Column(name = "desconto")
@@ -32,4 +32,13 @@ public class Sale {
 
     @Column(name = "descricao")
     private String description;
+
+    public Sale(SaleDTO saleDTO) {
+        this.id = saleDTO.getId();
+        this.name = saleDTO.getNome();
+        this.creationDate = saleDTO.getDataDeCriacao();
+        this.expirationDate = saleDTO.getDataDeValidade();
+        this.discount = saleDTO.getDesconto();
+        this.description = saleDTO.getDescricao();
+    }
 }

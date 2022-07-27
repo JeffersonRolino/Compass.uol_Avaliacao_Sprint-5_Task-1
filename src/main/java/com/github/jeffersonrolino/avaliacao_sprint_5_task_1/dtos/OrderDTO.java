@@ -33,7 +33,7 @@ public class OrderDTO {
         this.total = total;
     }
 
-    public List<Item> convertItens(List<ItemDTO> itemDTOS){
+    public List<Item> convertToItens(List<ItemDTO> itemDTOS){
         List<Item> itens = new ArrayList<>();
         for (ItemDTO itemDTO : itemDTOS){
             itens.add(new Item(itemDTO));
