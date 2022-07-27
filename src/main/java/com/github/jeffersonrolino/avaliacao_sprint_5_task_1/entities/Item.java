@@ -1,12 +1,14 @@
 package com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities;
 
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos.ItemDTO;
+import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.parsers.LocalDateTimeParser;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +27,10 @@ public class Item {
     private String name;
 
     @Column(name = "data_criacao")
-    private String creationDate;
+    private LocalDateTime creationDate;
 
     @Column(name = "data_validade")
-    private String expirationDate;
+    private LocalDateTime expirationDate;
 
     @NotNull
     @Column(name = "preco")
@@ -49,8 +51,8 @@ public class Item {
     public Item(ItemDTO itemDTO) {
         this.id = itemDTO.getId();
         this.name = itemDTO.getNome();
-        this.creationDate = itemDTO.getDataDeCriacao();
-        this.expirationDate = itemDTO.getDataDeValidade();
+        this.creationDate = LocalDateTimeParser.parseAndFormat(itemDTO.getDataDeCriacao());
+        this.expirationDate = LocalDateTimeParser.parseAndFormat(itemDTO.getDataDeValidade());
         this.price = itemDTO.getValor();
         this.description = itemDTO.getDescricao();
         this.sales = itemDTO.convertToSales(itemDTO.getOfertas());
