@@ -28,4 +28,12 @@ public class SaleDTO {
 
     @NotNull @NotEmpty
     private String descricao;
+
+    public SaleDTO(String nome, String dataDeCriacao, String dataDeValidade, double desconto, String descricao) {
+        this.nome = nome;
+        this.dataDeCriacao = dataDeCriacao;
+        this.dataDeValidade = dataDeValidade;
+        this.desconto = desconto;
+        this.descricao = descricao;
+    }
 }

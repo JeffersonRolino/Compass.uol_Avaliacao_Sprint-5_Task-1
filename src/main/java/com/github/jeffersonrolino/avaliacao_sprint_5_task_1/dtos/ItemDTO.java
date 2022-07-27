@@ -35,6 +35,14 @@ public class ItemDTO {
     @NotNull
     private List<SaleDTO> ofertas = new ArrayList<>();
 
+    public ItemDTO(String nome, String dataDeCriacao, String dataDeValidade, double valor, String descricao, List<SaleDTO> ofertas) {
+        this.nome = nome;
+        this.dataDeCriacao = dataDeCriacao;
+        this.dataDeValidade = dataDeValidade;
+        this.valor = valor;
+        this.descricao = descricao;
+        this.ofertas = ofertas;
+    }
 
     public List<Sale> convertToSales(List<SaleDTO> salesDTOS){
         List<Sale> sales = new ArrayList<>();
@@ -43,6 +51,8 @@ public class ItemDTO {
         }
         return sales;
     }
+
+
 
 
 }

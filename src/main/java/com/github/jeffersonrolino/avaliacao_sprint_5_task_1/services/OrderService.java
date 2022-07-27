@@ -12,6 +12,13 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
+    public OrderService(){}
+
+    public OrderService(OrderRepository orderRepository){
+        this.orderRepository = orderRepository;
+    }
+
+
     public boolean saveNewOrder(OrderDTO orderDTO){
         try {
             Order order = new Order(orderDTO);
