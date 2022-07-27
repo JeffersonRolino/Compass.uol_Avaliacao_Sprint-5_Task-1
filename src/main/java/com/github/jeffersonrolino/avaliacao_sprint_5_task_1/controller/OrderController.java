@@ -34,6 +34,14 @@ public class OrderController {
         return orderService.getAllOrders();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<OrderDTO>  returnOrderById(@PathVariable() Long id){
+        return orderService.getOrderById(id);
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<OrderDTO> deleteOrderById(@PathVariable Long id){
+        return orderService.removeOrderById(id);
+    }
 
 }
