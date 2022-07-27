@@ -4,8 +4,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class LocalDateTimeParser {
+
+    public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
     public static LocalDateTime parseAndFormat(String data){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         return LocalDateTime.parse(data, formatter);
+    }
+
+    public static String toString(LocalDateTime localDateTime){
+        return localDateTime.format(formatter);
     }
 }
