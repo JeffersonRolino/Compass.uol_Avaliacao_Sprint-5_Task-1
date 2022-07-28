@@ -26,17 +26,6 @@ public class ItemService {
     }
 
 
-    public boolean saveNewItem(ItemDTO ItemDTO){
-        try {
-            Item Item = new Item(ItemDTO);
-            ItemRepository.save(Item);
-            return true;
-        } catch (RuntimeException exception){
-            exception.printStackTrace();
-            return false;
-        }
-    }
-
     public List<ItemDTO> getAllItems(){
         try{
             List<Item> Items = ItemRepository.findAll();
@@ -71,11 +60,21 @@ public class ItemService {
     public boolean partialUpdateNewItem(ItemDTO ItemDTO, Long id) throws RuntimeException{
         Item Item = ItemRepository.findById(id).orElseThrow(RuntimeException::new);
 
-        Item.setName(ItemDTO.getNome());
-        Item.setCreationDate(LocalDateTimeParser.parseAndFormat(ItemDTO.getDataDeCriacao()));
-        Item.setExpirationDate(LocalDateTimeParser.parseAndFormat(ItemDTO.getDataDeValidade()));
-        Item.setPrice(ItemDTO.getValor());
-        Item.setDescription(ItemDTO.getDescricao());
+        if(ItemDTO.getNome() != null){
+            Item.setName(ItemDTO.getNome());
+        }
+        if(ItemDTO.getDataDeCriacao() != null){
+            Item.setCreationDate(LocalDateTimeParser.parseAndFormat(ItemDTO.getDataDeCriacao()));
+        }
+        if(ItemDTO.getDataDeValidade() != null){
+            Item.setExpirationDate(LocalDateTimeParser.parseAndFormat(ItemDTO.getDataDeValidade()));
+        }
+        if(ItemDTO.getValor() < 0){
+            Item.setPrice(ItemDTO.getValor());
+        }
+        if(ItemDTO.getDescricao() != null){
+            Item.setDescription(ItemDTO.getDescricao());
+        }
 
         ItemRepository.save(Item);
         return true;

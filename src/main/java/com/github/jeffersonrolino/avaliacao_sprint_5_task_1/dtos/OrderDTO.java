@@ -2,7 +2,9 @@ package com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos;
 
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities.Item;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities.Order;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
@@ -13,6 +15,8 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderDTO {
     private Long id;
 
@@ -24,14 +28,6 @@ public class OrderDTO {
 
     @PositiveOrZero
     private Double total;
-
-    public OrderDTO(){}
-
-    public OrderDTO(String cpf, List<ItemDTO> itens, Double total) {
-        this.cpf = cpf;
-        this.itens = itens;
-        this.total = total;
-    }
 
     public OrderDTO(Order order) {
         this.id = order.getId();

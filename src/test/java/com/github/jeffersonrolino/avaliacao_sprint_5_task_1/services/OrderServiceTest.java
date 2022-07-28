@@ -59,29 +59,29 @@ class OrderServiceTest {
         sales.add(saleDTO2);
 
         ItemDTO itemDTO1 = new ItemDTO(
+                1L,
                 "Headset Gamer",
                 "22/11/2019 07:06:45",
                 "16/07/2022 16:24:58",
                 249.90,
                 "Headset Gamer HyperX Cloud Stinger",
-                1L,
                 sales
         );
 
         ItemDTO itemDTO2 = new ItemDTO(
+                2L,
                 "HD SSD",
                 "13/01/2017 06:10:13",
                 "22/03/2022 16:24:58",
                 179.90,
                 "SSD Kingston A400, 240GB, SATA, Leitura 500MB/s, Gravação 350MB/s - SA400S37/240G",
-                1L,
                 sales
         );
 
         itens.add(itemDTO1);
         itens.add(itemDTO2);
 
-        OrderDTO orderDTO = new OrderDTO("034625125-31",itens,429.80);
+        OrderDTO orderDTO = new OrderDTO(1L, "034625125-31", itens,429.80);
 
         boolean isSaved = orderService.saveNewOrder(orderDTO);
 

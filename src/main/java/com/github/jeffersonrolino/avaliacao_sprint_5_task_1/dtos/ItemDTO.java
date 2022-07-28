@@ -3,6 +3,7 @@ package com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities.Item;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities.Sale;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.parsers.LocalDateTimeParser;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class ItemDTO {
     private Long id;
 
@@ -31,23 +33,11 @@ public class ItemDTO {
     @PositiveOrZero
     private double valor;
 
-    private Long order_id;
-
     @NotNull @NotEmpty
     private String descricao;
 
     @NotNull
     private List<SaleDTO> ofertas = new ArrayList<>();
-
-    public ItemDTO(String nome, String dataDeCriacao, String dataDeValidade, double valor, String descricao, Long order_id, List<SaleDTO> ofertas) {
-        this.nome = nome;
-        this.dataDeCriacao = dataDeCriacao;
-        this.dataDeValidade = dataDeValidade;
-        this.valor = valor;
-        this.descricao = descricao;
-        this.order_id = order_id;
-        this.ofertas = ofertas;
-    }
 
     public ItemDTO(Item item) {
         this.id = item.getId();

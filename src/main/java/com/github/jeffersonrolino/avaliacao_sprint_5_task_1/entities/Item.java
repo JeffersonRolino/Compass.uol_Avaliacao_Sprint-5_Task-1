@@ -5,7 +5,6 @@ import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos.SaleDTO;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.parsers.LocalDateTimeParser;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -39,13 +38,8 @@ public class Item {
     @Column(name = "descricao")
     private String description;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "tb_item_oferta",
-            joinColumns = @JoinColumn(name = "item_id"),
-            inverseJoinColumns = @JoinColumn(name = "oferta_id")
-    )
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ManyToMany(targetEntity = Sale.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "item_id", nullable = false)
     private List<Sale> sales = new ArrayList<>();
 
     public Item(ItemDTO itemDTO) {

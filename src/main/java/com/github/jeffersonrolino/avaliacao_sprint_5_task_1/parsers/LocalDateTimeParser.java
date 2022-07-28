@@ -7,11 +7,17 @@ public class LocalDateTimeParser {
 
     public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
-    public static LocalDateTime parseAndFormat(String data){
-        return LocalDateTime.parse(data, formatter);
+    public static LocalDateTime parseAndFormat(String data) {
+        if(data != null){
+            return LocalDateTime.parse(data, formatter);
+        }
+        return null;
     }
 
     public static String toString(LocalDateTime localDateTime){
-        return localDateTime.format(formatter);
+        if(localDateTime != null){
+            return localDateTime.format(formatter);
+        }
+        return null;
     }
 }
