@@ -4,12 +4,14 @@ import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos.OrderDTO;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities.Order;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
@@ -76,5 +78,20 @@ public class OrderService {
 
         orderRepository.save(order);
         return true;
+    }
+
+    public List<OrderDTO> getAllOrdersByPriceValue(String order) {
+        if(order.equalsIgnoreCase("ASC")){
+            return orderRepository.findAll(Sort.by(Sort.Direction.ASC, "total")).stream().map(OrderDTO::new).collect(Collectors.toList());
+        }
+        if(order.equalsIgnoreCase("DESC"))
+        {
+            return orderRepository.findAll(Sort.by(Sort.Direction.DESC, "total")).stream().map(OrderDTO::new).collect(Collectors.toList());
+        }
+        return getAllOrders();
+    }
+
+    public List<OrderDTO> getAllOrdersByCpf(String cpf) {
+        return orderRepository.findByCpf(cpf).stream().map(OrderDTO::new).collect(Collectors.toList());
     }
 }

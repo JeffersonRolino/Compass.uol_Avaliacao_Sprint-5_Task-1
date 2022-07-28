@@ -30,7 +30,21 @@ public class OrderController {
     }
 
     @GetMapping
-    public List<OrderDTO> returnAllOrders(){
+    public List<OrderDTO> returnAllOrders(
+            @RequestParam(required = false) Boolean sort,
+            @RequestParam(required = false) String order,
+            @RequestParam(required = false) String filter){
+        if(filter != null){
+            return orderService.getAllOrdersByCpf(filter);
+        }
+
+        if(sort != null){
+            if(sort == true){
+                if(order != null){
+                    return orderService.getAllOrdersByPriceValue(order);
+                }
+            }
+        }
         return orderService.getAllOrders();
     }
 
