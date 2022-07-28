@@ -63,7 +63,8 @@ class OrderServiceTest {
                 "22/11/2019 07:06:45",
                 "16/07/2022 16:24:58",
                 249.90,
-                "Headset Gamer HyperX Cloud Stinger,",
+                "Headset Gamer HyperX Cloud Stinger",
+                1L,
                 sales
         );
 
@@ -73,6 +74,7 @@ class OrderServiceTest {
                 "22/03/2022 16:24:58",
                 179.90,
                 "SSD Kingston A400, 240GB, SATA, Leitura 500MB/s, Gravação 350MB/s - SA400S37/240G",
+                1L,
                 sales
         );
 

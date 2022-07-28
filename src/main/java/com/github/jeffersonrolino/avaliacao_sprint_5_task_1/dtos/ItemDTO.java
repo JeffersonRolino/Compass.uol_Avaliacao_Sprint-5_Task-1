@@ -31,18 +31,21 @@ public class ItemDTO {
     @PositiveOrZero
     private double valor;
 
+    private Long order_id;
+
     @NotNull @NotEmpty
     private String descricao;
 
     @NotNull
     private List<SaleDTO> ofertas = new ArrayList<>();
 
-    public ItemDTO(String nome, String dataDeCriacao, String dataDeValidade, double valor, String descricao, List<SaleDTO> ofertas) {
+    public ItemDTO(String nome, String dataDeCriacao, String dataDeValidade, double valor, String descricao, Long order_id, List<SaleDTO> ofertas) {
         this.nome = nome;
         this.dataDeCriacao = dataDeCriacao;
         this.dataDeValidade = dataDeValidade;
         this.valor = valor;
         this.descricao = descricao;
+        this.order_id = order_id;
         this.ofertas = ofertas;
     }
 

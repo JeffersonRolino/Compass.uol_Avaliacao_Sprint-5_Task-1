@@ -4,7 +4,6 @@ import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos.ItemDTO;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos.OrderDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,18 +18,13 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pedido_id")
     private Long id;
 
     private String cpf;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "tb_pedido_item",
-            joinColumns = @JoinColumn(name = "pedido_id"),
-            inverseJoinColumns = @JoinColumn(name = "item_id")
-    )
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+
+    @OneToMany(targetEntity = Item.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id", nullable = false)
     private List<Item> itens = new ArrayList<>();
 
     @NotNull
@@ -50,6 +44,4 @@ public class Order {
         }
         return itemDTOS;
     }
-
-
 }
