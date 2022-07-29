@@ -1,8 +1,9 @@
 package com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities;
 
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos.ItemDTO;
-import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos.SaleDTO;
+import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.mappers.Mapper;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.parsers.LocalDateTimeParser;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "tb_item")
 public class Item {
 
@@ -49,17 +51,8 @@ public class Item {
         this.expirationDate = LocalDateTimeParser.parseAndFormat(itemDTO.getDataDeValidade());
         this.price = itemDTO.getValor();
         this.description = itemDTO.getDescricao();
-        this.sales = itemDTO.convertToSales(itemDTO.getOfertas());
+        this.sales = Mapper.saleDTOsToSales(itemDTO.getOfertas());
 
-    }
-
-    public List< SaleDTO> salesToSalesDTO(List<Sale> sales){
-        List< SaleDTO> saleDTOS = new ArrayList<>();
-        for(Sale sale : sales){
-            SaleDTO saleDTO = new SaleDTO(sale);
-            saleDTOS.add(saleDTO);
-        }
-        return saleDTOS;
     }
 
 }

@@ -2,6 +2,7 @@ package com.github.jeffersonrolino.avaliacao_sprint_5_task_1.services;
 
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos.OrderDTO;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities.Order;
+import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.mappers.Mapper;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -76,7 +77,7 @@ public class OrderService {
         Order order = orderRepository.findById(id).orElseThrow(RuntimeException::new);
 
         order.setCpf(orderDTO.getCpf());
-        order.setItens(orderDTO.convertToItens(orderDTO.getItens()));
+        order.setItens(Mapper.itemDTOsToItens(orderDTO.getItens()));
         order.setTotal(orderDTO.getTotal());
 
         orderRepository.save(order);

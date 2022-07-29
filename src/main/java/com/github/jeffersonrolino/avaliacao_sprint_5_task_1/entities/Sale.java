@@ -3,6 +3,7 @@ package com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos.SaleDTO;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.parsers.LocalDateTimeParser;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.validations.ValidDates;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "tb_ofertas")
 @ValidDates
 public class Sale {

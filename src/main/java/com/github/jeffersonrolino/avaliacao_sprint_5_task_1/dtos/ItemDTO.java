@@ -1,7 +1,7 @@
 package com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos;
 
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities.Item;
-import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities.Sale;
+import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.mappers.Mapper;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.parsers.LocalDateTimeParser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,15 +48,7 @@ public class ItemDTO {
         this.dataDeValidade = LocalDateTimeParser.toString(item.getCreationDate());
         this.valor = item.getPrice();
         this.descricao = item.getDescription();
-        this.ofertas = item.salesToSalesDTO(item.getSales());
-    }
-
-    public List< Sale> convertToSales(List<@Valid SaleDTO> salesDTOS){
-        List<@Valid Sale> sales = new ArrayList<>();
-        for (SaleDTO saleDTOS : salesDTOS){
-            sales.add(new Sale(saleDTOS));
-        }
-        return sales;
+        this.ofertas = Mapper.salesToSalesDTO(item.getSales());
     }
 
 

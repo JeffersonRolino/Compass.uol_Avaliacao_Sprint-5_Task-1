@@ -81,7 +81,7 @@ class OrderServiceTest {
         itens.add(itemDTO1);
         itens.add(itemDTO2);
 
-        OrderDTO orderDTO = new OrderDTO(1L, "034625125-31", itens,429.80);
+        OrderDTO orderDTO = new OrderDTO(1L, "168.329.311-82", itens,429.80);
 
         boolean isSaved = orderService.saveNewOrder(orderDTO);
 
