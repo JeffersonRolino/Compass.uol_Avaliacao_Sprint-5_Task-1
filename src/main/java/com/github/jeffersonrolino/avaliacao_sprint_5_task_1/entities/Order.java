@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +42,8 @@ public class Order {
         this.total = orderDTO.getTotal();
     }
 
-    public List<ItemDTO> itensToItensDTO(List<Item> itens){
-        List<ItemDTO> itemDTOS = new ArrayList<>();
+    public List<@Valid ItemDTO> itensToItensDTO(List<@Valid Item> itens){
+        List<@Valid ItemDTO> itemDTOS = new ArrayList<>();
         for (Item item : itens){
             itemDTOS.add(new ItemDTO(item));
         }

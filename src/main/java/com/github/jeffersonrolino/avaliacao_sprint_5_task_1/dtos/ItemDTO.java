@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
@@ -38,7 +39,7 @@ public class ItemDTO {
     private String descricao;
 
     @NotNull
-    private List<SaleDTO> ofertas = new ArrayList<>();
+    private List<@Valid SaleDTO> ofertas = new ArrayList<>();
 
     public ItemDTO(Item item) {
         this.id = item.getId();
@@ -50,8 +51,8 @@ public class ItemDTO {
         this.ofertas = item.salesToSalesDTO(item.getSales());
     }
 
-    public List< Sale> convertToSales(List< SaleDTO> salesDTOS){
-        List<Sale> sales = new ArrayList<>();
+    public List< Sale> convertToSales(List<@Valid SaleDTO> salesDTOS){
+        List<@Valid Sale> sales = new ArrayList<>();
         for (SaleDTO saleDTOS : salesDTOS){
             sales.add(new Sale(saleDTOS));
         }

@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
@@ -24,21 +25,21 @@ public class OrderDTO {
     private String cpf;
 
     @NotNull @NotEmpty
-    private List< ItemDTO> itens = new ArrayList<>();
+    private List<@Valid ItemDTO> itens = new ArrayList<>();
 
     @PositiveOrZero
     private Double total;
 
-    public OrderDTO( Order order) {
+    public OrderDTO(Order order) {
         this.id = order.getId();
         this.cpf = order.getCpf();
         this.itens = order.itensToItensDTO(order.getItens());
         this.total = order.getTotal();
     }
 
-    public List<Item> convertToItens(List< ItemDTO> itemDTOS){
-        List< Item> itens = new ArrayList<>();
-        for ( ItemDTO itemDTO : itemDTOS){
+    public List<Item> convertToItens(List<@Valid ItemDTO> itemDTOS){
+        List<@Valid Item> itens = new ArrayList<>();
+        for (ItemDTO itemDTO : itemDTOS){
             itens.add(new Item(itemDTO));
         }
         return itens;

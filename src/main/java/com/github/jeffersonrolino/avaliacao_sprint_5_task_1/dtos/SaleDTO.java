@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Getter
 @Setter
@@ -25,7 +26,7 @@ public class SaleDTO {
     @NotNull
     private String dataDeValidade;
 
-    @NotNull
+    @NotNull @Positive
     private double desconto;
 
     @NotNull @NotEmpty
