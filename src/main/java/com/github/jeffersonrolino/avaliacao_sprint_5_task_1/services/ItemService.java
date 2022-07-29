@@ -69,7 +69,7 @@ public class ItemService {
         if(ItemDTO.getDataDeValidade() != null){
             Item.setExpirationDate(LocalDateTimeParser.parseAndFormat(ItemDTO.getDataDeValidade()));
         }
-        if(ItemDTO.getValor() < 0){
+        if(ItemDTO.getValor() > 0){
             Item.setPrice(ItemDTO.getValor());
         }
         if(ItemDTO.getDescricao() != null){

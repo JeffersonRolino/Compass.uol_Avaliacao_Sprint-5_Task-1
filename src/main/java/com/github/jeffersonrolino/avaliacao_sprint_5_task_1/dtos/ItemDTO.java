@@ -21,7 +21,8 @@ import java.util.List;
 public class ItemDTO {
     private Long id;
 
-    @NotNull @NotEmpty
+    @NotNull
+    @NotEmpty
     private String nome;
 
     @NotNull
@@ -49,7 +50,7 @@ public class ItemDTO {
         this.ofertas = item.salesToSalesDTO(item.getSales());
     }
 
-    public List<Sale> convertToSales(List<SaleDTO> salesDTOS){
+    public List< Sale> convertToSales(List< SaleDTO> salesDTOS){
         List<Sale> sales = new ArrayList<>();
         for (SaleDTO saleDTOS : salesDTOS){
             sales.add(new Sale(saleDTOS));

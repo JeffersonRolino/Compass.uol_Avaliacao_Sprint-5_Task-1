@@ -40,7 +40,7 @@ public class Item {
 
     @ManyToMany(targetEntity = Sale.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "item_id", nullable = false)
-    private List<Sale> sales = new ArrayList<>();
+    private List< Sale> sales = new ArrayList<>();
 
     public Item(ItemDTO itemDTO) {
         this.id = itemDTO.getId();
@@ -50,10 +50,11 @@ public class Item {
         this.price = itemDTO.getValor();
         this.description = itemDTO.getDescricao();
         this.sales = itemDTO.convertToSales(itemDTO.getOfertas());
+
     }
 
-    public List<SaleDTO> salesToSalesDTO(List<Sale> sales){
-        List<SaleDTO> saleDTOS = new ArrayList<>();
+    public List< SaleDTO> salesToSalesDTO(List<Sale> sales){
+        List< SaleDTO> saleDTOS = new ArrayList<>();
         for(Sale sale : sales){
             SaleDTO saleDTO = new SaleDTO(sale);
             saleDTOS.add(saleDTO);

@@ -27,9 +27,9 @@ public class OrderService {
     }
 
 
-    public boolean saveNewOrder(OrderDTO orderDTO){
+    public boolean saveNewOrder( OrderDTO orderDTO){
         try {
-            Order order = new Order(orderDTO);
+             Order order = new Order(orderDTO);
             orderRepository.save(order);
             return true;
         } catch (RuntimeException exception){
@@ -40,8 +40,8 @@ public class OrderService {
 
     public List<OrderDTO> getAllOrders(){
         try{
-            List<Order> orders = orderRepository.findAll();
-            List<OrderDTO> orderDTOS = new ArrayList<>();
+            List< Order> orders = orderRepository.findAll();
+            List< OrderDTO> orderDTOS = new ArrayList<>();
             for(Order order : orders){
                 orderDTOS.add(new OrderDTO(order));
             }

@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDateTime;
 
@@ -23,9 +25,11 @@ public class Sale {
     private String name;
 
     @Column(name = "data_criacao")
+    @PastOrPresent
     private LocalDateTime creationDate;
 
     @Column(name = "data_validade")
+    @FutureOrPresent
     private LocalDateTime expirationDate;
 
     @PositiveOrZero
