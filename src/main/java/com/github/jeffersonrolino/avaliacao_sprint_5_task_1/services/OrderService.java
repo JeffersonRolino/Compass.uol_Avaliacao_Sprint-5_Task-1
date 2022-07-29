@@ -5,6 +5,7 @@ import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities.Order;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -56,7 +57,8 @@ public class OrderService {
     public ResponseEntity<OrderDTO> getOrderById(Long id) {
         Optional<Order> order = orderRepository.findById(id);
         if (order.isPresent()) {
-            return ResponseEntity.ok(new OrderDTO(order.get()));
+            return new ResponseEntity<OrderDTO>(new OrderDTO(order.get()), HttpStatus.OK);
+//            return ResponseEntity.ok(new OrderDTO(order.get()));
         }
         return ResponseEntity.notFound().build();
     }

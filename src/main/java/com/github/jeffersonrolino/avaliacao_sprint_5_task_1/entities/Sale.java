@@ -2,12 +2,11 @@ package com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities;
 
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos.SaleDTO;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.parsers.LocalDateTimeParser;
+import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.validations.ValidDates;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.FutureOrPresent;
-import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDateTime;
 
@@ -15,6 +14,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @Table(name = "tb_ofertas")
+@ValidDates
 public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,11 +25,9 @@ public class Sale {
     private String name;
 
     @Column(name = "data_criacao")
-    @PastOrPresent
     private LocalDateTime creationDate;
 
     @Column(name = "data_validade")
-    @FutureOrPresent
     private LocalDateTime expirationDate;
 
     @PositiveOrZero
