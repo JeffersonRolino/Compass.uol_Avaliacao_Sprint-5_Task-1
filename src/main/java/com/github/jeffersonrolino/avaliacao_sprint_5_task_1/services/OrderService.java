@@ -18,13 +18,13 @@ import java.util.stream.Collectors;
 @Service
 public class OrderService {
 
-    @Autowired
     private OrderRepository orderRepository;
 
 
     public OrderService() {
     }
 
+    @Autowired
     public OrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }
@@ -59,7 +59,6 @@ public class OrderService {
         Optional<Order> order = orderRepository.findById(id);
         if (order.isPresent()) {
             return new ResponseEntity<OrderDTO>(new OrderDTO(order.get()), HttpStatus.OK);
-//            return ResponseEntity.ok(new OrderDTO(order.get()));
         }
         return ResponseEntity.notFound().build();
     }
