@@ -69,15 +69,30 @@ class OrderServiceTest {
     @Test
     void shouldGetAllOrders() {
         List<Order> orders = orders();
-
         Mockito.when(orderRepository.findAll()).thenReturn(orders);
 
         List<OrderDTO> orderDTOS = orderService.getAllOrders();
 
-        for (OrderDTO orderDTO : orderDTOS) {
-            Assertions.assertEquals(orderDTO.getClass().getSimpleName(), OrderDTO.class.getSimpleName());
+        for (OrderDTO orderDTO : orderDTOS){
+            assertThat(orderDTO).isNotNull();
+            assertThat(orderDTO.getClass()).isEqualTo(OrderDTO.class);
         }
     }
+
+
+    @Test
+    void shouldNotGetAllOrders() {
+        Mockito.when(orderService.getAllOrders()).thenThrow(RuntimeException.class);
+
+        try{
+            List<OrderDTO> orderDTOS = orderService.getAllOrders();
+        } catch (Exception e){
+            assertThat(e).isEqualTo(RuntimeException.class);
+            assertThat(orderDTOS()).isNull();
+        }
+    }
+
+
 
     @Test
     void getOrderById() {
