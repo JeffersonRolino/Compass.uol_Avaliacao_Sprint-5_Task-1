@@ -50,9 +50,4 @@ public class ItemDTO {
         this.descricao = item.getDescription();
         this.ofertas = Mapper.salesToSalesDTO(item.getSales());
     }
-
-
-
-
-
 }

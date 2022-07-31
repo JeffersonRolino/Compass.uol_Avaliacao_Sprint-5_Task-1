@@ -1,21 +1,16 @@
 package com.github.jeffersonrolino.avaliacao_sprint_5_task_1.mappers;
 
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos.ItemDTO;
-import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos.OrderDTO;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.dtos.SaleDTO;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities.Item;
-import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities.Order;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities.Sale;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.parsers.LocalDateTimeParser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class MapperTest {
     LocalDateTime creationDate = LocalDateTimeParser.parseAndFormat("26/01/2019 00:01:01");

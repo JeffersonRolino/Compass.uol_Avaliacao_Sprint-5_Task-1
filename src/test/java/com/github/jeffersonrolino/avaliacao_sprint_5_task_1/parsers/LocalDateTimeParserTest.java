@@ -3,9 +3,9 @@ package com.github.jeffersonrolino.avaliacao_sprint_5_task_1.parsers;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class LocalDateTimeParserTest {
 
