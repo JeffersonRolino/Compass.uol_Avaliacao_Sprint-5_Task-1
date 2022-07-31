@@ -138,6 +138,20 @@ class ItemServiceTest {
 
     @Test
     void partialUpdateNewItem() {
+        //GIVEN
+        Item item = items().get(0);
+        Long id = item.getId();
+
+        ItemDTO itemDTO = itemDTOS().get(0);
+
+
+        Mockito.when(itemRepository.findById(id)).thenReturn(Optional.of(item));
+
+        Boolean updated = itemService.partialUpdateNewItem(itemDTO, id);
+
+        assertEquals(updated, true);
+
+
     }
 
     public List<SaleDTO> saleDTOS(){
