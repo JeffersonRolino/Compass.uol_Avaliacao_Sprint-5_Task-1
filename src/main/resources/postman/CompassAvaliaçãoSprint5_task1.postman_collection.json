@@ -1,0 +1,181 @@
+{
+	"info": {
+		"_postman_id": "b6b80c33-d087-4013-93c3-1d794649e4a7",
+		"name": "CompassAvaliaçãoSprint5_task1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9944971"
+	},
+	"item": [
+		{
+			"name": "Inserir Pedido",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"cpf\": \"168.329.311-82\",\r\n        \"itens\": [\r\n            {\r\n                \"nome\": \"Headset Gamer\",\r\n                \"dataDeCriacao\": \"22/11/2030 07:06:45\",\r\n                \"dataDeValidade\": \"16/07/2050 16:24:58\",\r\n                \"valor\": 249.90,\r\n                \"descricao\": \"Headset Gamer HyperX Cloud Stinger, Drivers 50mm, Múltiplas Plataformas, P2 e P3 - HX-HSCS-BK/NA\",\r\n                \"ofertas\": [\r\n                    {\r\n                    \"nome\": \"Queima de Estoque\",    \r\n                    \"dataDeCriacao\": \"30/12/2017 00:01:01\",\r\n                    \"dataDeValidade\": \"01/12/2100 23:59:59\",\r\n                    \"desconto\": 10.00,\r\n                    \"descricao\": \"Incrível, todos nosso produtos com R$10,00 reais de desconto!!!\"\r\n                    },\r\n                    {\r\n                    \"nome\": \"Promoção de Natal\",    \r\n                    \"dataDeCriacao\": \"20/01/2010 00:01:01\",\r\n                    \"dataDeValidade\": \"31/12/2022 23:59:59\",\r\n                    \"desconto\": 20.00,\r\n                    \"descricao\": \"Incrível, todos nosso produtos com R$20,00 reais de desconto!!!\"\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"nome\": \"HD SSD\",\r\n                \"dataDeCriacao\": \"13/01/2017 06:10:13\",\r\n                \"dataDeValidade\": \"22/03/2022 16:24:58\",\r\n                \"valor\": 179.90,\r\n                \"descricao\": \"SSD Kingston A400, 240GB, SATA, Leitura 500MB/s, Gravação 350MB/s - SA400S37/240G\"\r\n            }\r\n        ],\r\n        \"total\": 2000\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/pedido",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedido"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retorna Todos os Pedidos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pedido?sort=true&order=ASC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedido"
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "true"
+						},
+						{
+							"key": "order",
+							"value": "DESC",
+							"disabled": true
+						},
+						{
+							"key": "filter",
+							"value": "333",
+							"disabled": true
+						},
+						{
+							"key": "order",
+							"value": "ASC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retorna Pedido por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pedido/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedido",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Pedido por ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pedido/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedido",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualiza Parcialmente o Pedido",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"cpf\": \"168.329.311-82\",\r\n        \"itens\": [\r\n            {\r\n                \"nome\": \"Headset Gamer\",\r\n                \"dataDeCriacao\": \"22/11/2019 07:06:45\",\r\n                \"valor\": 249.90,\r\n                \"descricao\": \"Headset Gamer HyperX Cloud Stinger, Drivers 50mm, Múltiplas Plataformas, P2 e P3 - HX-HSCS-BK/NA\",\r\n                \"ofertas\": [\r\n                    {\r\n                    \"nome\": \"Queima de Estoque\",    \r\n                    \"dataDeCriacao\": \"26/01/2020 00:01:01\",\r\n                    \"dataDeValidade\": \"31/12/2022 23:59:59\",\r\n                    \"desconto\": 10.00,\r\n                    \"descricao\": \"Incrível, todos nosso produtos com R$10,00 reais de desconto!!!\"\r\n                    },\r\n                    {\r\n                    \"nome\": \"Promoção de Natal\",    \r\n                    \"dataDeCriacao\": \"20/01/2022 00:01:01\",\r\n                    \"dataDeValidade\": \"31/12/2022 23:59:59\",\r\n                    \"desconto\": 20.00,\r\n                    \"descricao\": \"Incrível, todos nosso produtos com R$20,00 reais de desconto!!!\"\r\n                    }\r\n                ]\r\n            },\r\n            {\r\n                \"nome\": \"HD SSD\",\r\n                \"dataDeCriacao\": \"13/01/2017 06:10:13\",\r\n                \"dataDeValidade\": \"22/03/2022 16:24:58\",\r\n                \"valor\": 179.90,\r\n                \"descricao\": \"SSD Kingston A400, 240GB, SATA, Leitura 500MB/s, Gravação 350MB/s - SA400S37/240G\"\r\n            }\r\n        ],\r\n        \"total\": 429.80\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/pedido/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pedido",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualiza Item Parcialmente por ID",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"Headset Gamer\",\r\n    \"dataDeCriacao\": \"22/11/2019 07:06:45\",\r\n    \"valor\": 249.90,\r\n    \"descricao\": \"Headset Gamer HyperX Cloud Stinger, Drivers 50mm, Múltiplas Plataformas, P2 e P3 - HX-HSCS-BK/NA\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/item/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"item",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
