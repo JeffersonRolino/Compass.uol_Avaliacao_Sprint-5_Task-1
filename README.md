@@ -14,31 +14,31 @@ server.port=8080
 
 ### Banco de Dados
 
-####Profile Padrão
+Profile Padrão
 
-server.port=8080
+    server.port=8080
 
-spring.profiles.active = dev
+    spring.profiles.active = dev
 
-####Profile de Testes
+Profile de Testes
 
-application-test.properties
+    application-test.properties
 
-jdbc:h2:mem:mercado
+    jdbc:h2:mem:mercado
 
-url: /h2-console
+    url: /h2-console
 
-username: sa
+    username: sa
 
-password:
+    password:
 
-####Profile de Desenvolvimento
+Profile de Desenvolvimento
 
-jdbc:mysql://localhost:3306/mercado
+    jdbc:mysql://localhost:3306/mercado
 
-username: root
+    username: root
 
-password: root
+    password: root
 
 
 ## Endpoints
@@ -47,7 +47,7 @@ Endpoint principal da aplicação onde é possível realizar as principais requi
 #### POST
 Cadastra um novo Pedido na API. O id não precisa ser especificado, pois é gerado automaticamente pelo banco de dados, porém o CPF deve ser um CPF válido e não nulo, e o valor total também não deve ser nulo.
 
-Caso seja cadastrado um Pedido válido, a API retornará um código 201 Created, e mensagem: Pedido criado com sucesso!
+Caso seja cadastrado um Pedido válido, a API retornará um código 201 Created, e a mensagem: Pedido criado com sucesso!
 
 Exemplo de entrada válida:
 
@@ -141,9 +141,9 @@ Caso os Pedidos não existam a API simplesmente retorna um array vazio.
 
 #### Parâmetros de Consulta
 
-Este endpoint permite utilizar algumas Parâmetros de Consulta (Query Parameters) para filtrar e ordenar os resultados, são eles:
+Este endpoint permite utilizar alguns Parâmetros de Consulta (Query Parameters) para filtrar e ordenar os resultados, são eles:
 
-###### sort = true e order=ASC ou DESC
+    sort = true e order=ASC ou DESC
 
 Caso o sort seja igual a true o usuário deverá escolher o tipo de ordenação, Descendente(DESC) ou Ascendente(ASC). Essa ordenação é baseada no Valor Total do pedido.
 
@@ -151,9 +151,9 @@ Exemplo:
 
     /api/pedido?sort=true&order=ASC
 
-###### filter (filtra pedidos por cpf)
+##### filter (filtra pedidos por cpf)
 
-Retorna os pedidos de CPF específico.
+Retorna os pedidos de um CPF específico.
 
 Exemplo:
 
