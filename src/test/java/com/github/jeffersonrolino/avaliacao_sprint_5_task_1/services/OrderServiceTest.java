@@ -8,6 +8,7 @@ import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities.Order;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities.Sale;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.parsers.LocalDateTimeParser;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.repositories.OrderRepository;
+import net.bytebuddy.implementation.bind.annotation.Super;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,13 +16,16 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
@@ -105,9 +109,8 @@ class OrderServiceTest {
     }
 
 
-
     @Test
-    void getOrderById() {
+    void shouldGetOrderById() {
        //GIVEN
         Order order = orders().get(0);
         Mockito.when(orderRepository.findById(order.getId())).thenReturn(Optional.of(order));
@@ -135,7 +138,7 @@ class OrderServiceTest {
     }
 
     @Test
-    void removeOrderById() {
+    void shouldRemoveOrderById() {
         Order order = orders().get(0);
         Long id = order.getId();
         Mockito.when(orderRepository.findById(id)).thenReturn(Optional.of(order));
@@ -164,15 +167,69 @@ class OrderServiceTest {
     }
 
     @Test
-    void partialUpdateNewOrder() {
+    void shouldPartialUpdateNewOrder() {
+        Boolean updated = false;
+        OrderDTO orderDTO = orderDTOS().get(0);
+        Order order = new Order(orderDTO);
+        Long id = order.getId();
+        Mockito.when(orderRepository.findById(id)).thenReturn(Optional.of(order));
+
+        if(Optional.of(order).isPresent()){
+            updated = orderService.partialUpdateNewOrder(orderDTO, id);
+        }
+
+        assertThat(updated).isTrue();
+    }
+
+    @Test
+    void shouldNotPartialUpdateNewOrder(){
+        Boolean updated = true;
+        Mockito.when(orderRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
+        Optional<Order> optionalOrder = orderRepository.findById(Mockito.anyLong());
+        OrderDTO orderDTO = orderDTOS().get(0);
+
+        try{
+            Mockito.when(
+                    orderService.partialUpdateNewOrder(orderDTO, Mockito.anyLong()))
+                    .thenThrow(RuntimeException.class);
+        } catch (RuntimeException exception){
+            updated = false;
+        }
+        assertThat(updated).isFalse();
     }
 
     @Test
     void getAllOrdersByPriceValue() {
+        String order = "ASC";
+        orderService.getAllOrdersByPriceValue(order);
+
+        String order2 = "DESC";
+        orderService.getAllOrdersByPriceValue(order2);
+
+        String test = "test";
+        List<OrderDTO> orderDTOS =  orderService.getAllOrdersByPriceValue(test);
     }
 
     @Test
     void getAllOrdersByCpf() {
+        List<OrderDTO> orderDTOS = orderDTOS();
+        String cpf = orderDTOS.get(0).getCpf();
+        List<Order> orders = orders();
+
+        Mockito.when(orderRepository.findByCpf(cpf)).thenReturn(orders);
+
+        List<OrderDTO> orderDTOSReturned = orderService.getAllOrdersByCpf(cpf);
+
+        assertThat(orderDTOSReturned).isNotNull();
+
+    }
+
+    @Test
+    void shouldReturnEmptyConstrutor(){
+        OrderService orderService1 = new OrderService();
+
+        assertThat(orderService1).isNotNull();
+
     }
 
 
