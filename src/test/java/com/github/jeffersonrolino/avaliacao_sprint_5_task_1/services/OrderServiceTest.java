@@ -8,7 +8,6 @@ import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities.Order;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities.Sale;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.parsers.LocalDateTimeParser;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.repositories.OrderRepository;
-import net.bytebuddy.implementation.bind.annotation.Super;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,16 +15,13 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
@@ -101,7 +97,7 @@ class OrderServiceTest {
         Mockito.when(orderService.getAllOrders()).thenThrow(RuntimeException.class);
 
         try{
-            List<OrderDTO> orderDTOS = orderService.getAllOrders();
+            orderService.getAllOrders();
         } catch (Exception exception){
             assertThat(exception).isEqualTo(RuntimeException.class);
             assertThat(orderDTOS()).isNull();
@@ -129,7 +125,7 @@ class OrderServiceTest {
         Mockito.when(orderService.getOrderById(Mockito.anyLong())).thenThrow(RuntimeException.class);
         ResponseEntity<OrderDTO> responseEntity = new ResponseEntity<>(new OrderDTO(), HttpStatus.NOT_FOUND);
         try{
-            responseEntity = orderService.getOrderById(Mockito.anyLong());
+            orderService.getOrderById(Mockito.anyLong());
         } catch (Exception exception){
             assertThat(exception.getClass()).isEqualTo(RuntimeException.class);
             assertThat(exception).isNotNull();
@@ -208,6 +204,10 @@ class OrderServiceTest {
 
         String test = "test";
         List<OrderDTO> orderDTOS =  orderService.getAllOrdersByPriceValue(test);
+
+        assertThat(orderDTOS).isNotNull();
+        assertThat(orderDTOS.getClass().getSimpleName()).isEqualTo(ArrayList.class.getSimpleName());
+
     }
 
     @Test
@@ -221,7 +221,6 @@ class OrderServiceTest {
         List<OrderDTO> orderDTOSReturned = orderService.getAllOrdersByCpf(cpf);
 
         assertThat(orderDTOSReturned).isNotNull();
-
     }
 
     @Test
@@ -229,7 +228,6 @@ class OrderServiceTest {
         OrderService orderService1 = new OrderService();
 
         assertThat(orderService1).isNotNull();
-
     }
 
 
