@@ -8,7 +8,6 @@ import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities.Order;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.entities.Sale;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.parsers.LocalDateTimeParser;
 import com.github.jeffersonrolino.avaliacao_sprint_5_task_1.repositories.OrderRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,8 +15,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -28,7 +25,6 @@ import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class OrderServiceTest {
@@ -67,6 +63,22 @@ class OrderServiceTest {
     }
 
     @Test
+    void shouldNotSaveNewOrder(){
+        //GIVEN
+        OrderDTO orderDTO = orderDTOS().get(0);
+        Order order = new Order(orderDTO);
+        Mockito.when(orderService.saveNewOrder(orderDTO)).thenThrow(RuntimeException.class);
+
+        try{
+            orderService.saveNewOrder(orderDTO);
+        } catch (RuntimeException exception){
+            assertThat(exception).isEqualTo(RuntimeException.class);
+            Mockito.verify(orderRepository.save(order));
+        }
+
+    }
+
+    @Test
     void shouldGetAllOrders() {
         List<Order> orders = orders();
         Mockito.when(orderRepository.findAll()).thenReturn(orders);
@@ -86,8 +98,8 @@ class OrderServiceTest {
 
         try{
             List<OrderDTO> orderDTOS = orderService.getAllOrders();
-        } catch (Exception e){
-            assertThat(e).isEqualTo(RuntimeException.class);
+        } catch (Exception exception){
+            assertThat(exception).isEqualTo(RuntimeException.class);
             assertThat(orderDTOS()).isNull();
         }
     }
@@ -96,43 +108,59 @@ class OrderServiceTest {
 
     @Test
     void getOrderById() {
-        //GIVEN
-        List<Order> orders = orders();
-        Order order = orders.get(0);
+       //GIVEN
+        Order order = orders().get(0);
+        Mockito.when(orderRepository.findById(order.getId())).thenReturn(Optional.of(order));
 
         //WHEN
-        ResponseEntity<OrderDTO> responseEntity = new ResponseEntity<>(new OrderDTO(), HttpStatus.OK);
-
-        ResponseEntity<OrderDTO> notFoundResponseEntity = new ResponseEntity<>(new OrderDTO(), HttpStatus.NOT_FOUND);
-
-        Mockito.when(orderRepository.findById(1L)).thenReturn(Optional.of(order));
-
-        Optional<Order> optionalOrder = orderRepository.findById(1L);
+        ResponseEntity<OrderDTO> responseEntity = orderService.getOrderById(order.getId());
 
         //THEN
-        Assertions.assertEquals(orderRepository.findById(1L), optionalOrder);
-        Assertions.assertEquals(optionalOrder.get().getId(), 1L);
+        assertThat(responseEntity).isNotNull();
+        assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
+        assertThat(responseEntity.getBody().getClass()).isEqualTo(OrderDTO.class);
+    }
 
-        if (optionalOrder.isPresent()) {
-            assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
+    @Test
+    void shouldNotGetOrderById(){
+        Mockito.when(orderService.getOrderById(Mockito.anyLong())).thenThrow(RuntimeException.class);
+        ResponseEntity<OrderDTO> responseEntity = new ResponseEntity<>(new OrderDTO(), HttpStatus.NOT_FOUND);
+        try{
+            responseEntity = orderService.getOrderById(Mockito.anyLong());
+        } catch (Exception exception){
+            assertThat(exception.getClass()).isEqualTo(RuntimeException.class);
+            assertThat(exception).isNotNull();
+            assertThat(responseEntity.getStatusCodeValue()).isEqualTo(404);
         }
-
-
-//        Assertions.assertEquals(optionalOrder.get().getId(), order.getId());
-//
-//        Assertions.assertEquals(optionalOrder.getClass().getSimpleName(), Optional.of(order).getClass().getSimpleName());
-//
-//        Optional<Order> optionalOrder2 = orderRepository.findById(id);
-//        Assertions.assertEquals(optionalOrder2.get().getId(), optionalOrder.get().getId());
-//        Assertions.assertEquals(optionalOrder2.get().getClass().getSimpleName(),
-//                optionalOrder.get().getClass().getSimpleName());
-
-
     }
 
     @Test
     void removeOrderById() {
+        Order order = orders().get(0);
+        Long id = order.getId();
+        Mockito.when(orderRepository.findById(id)).thenReturn(Optional.of(order));
 
+        Optional<Order> optionalOrder = orderRepository.findById(id);
+
+        ResponseEntity<OrderDTO> responseEntity = orderService.removeOrderById(id);
+
+        if(optionalOrder.isPresent()){
+            verify(orderRepository).deleteById(id);
+            assertThat(responseEntity.getStatusCodeValue()).isEqualTo(200);
+        }
+    }
+
+    @Test
+    void shouldNotRemoveOrderById() {
+        Mockito.when(orderRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
+
+        Optional<Order> optionalOrder = orderRepository.findById(Mockito.anyLong());
+
+        ResponseEntity<OrderDTO> responseEntity = orderService.removeOrderById(Mockito.anyLong());
+
+        if(optionalOrder.isEmpty()){
+            assertThat(responseEntity.getStatusCodeValue()).isEqualTo(404);
+        }
     }
 
     @Test
