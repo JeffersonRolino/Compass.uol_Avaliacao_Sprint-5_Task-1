@@ -150,8 +150,6 @@ class ItemServiceTest {
         Boolean updated = itemService.partialUpdateNewItem(itemDTO, id);
 
         assertEquals(updated, true);
-
-
     }
 
     public List<SaleDTO> saleDTOS(){
@@ -263,5 +261,4 @@ class ItemServiceTest {
 
         return items;
     }
-
 }
